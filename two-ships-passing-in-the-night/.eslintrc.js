@@ -1,20 +1,24 @@
+/** @type {import('eslint').Linter.Config} */
 module.exports = {
+  root: true,
   env: {
     browser: true,
     es2021: true,
-    node: true,
+    jest: true,
   },
-  extends: ['eslint:recommended', 'plugin:prettier/recommended'],
+  extends: ['google'],
   parserOptions: {
-    ecmaVersion: 'latest',
+    ecmaVersion: 2021,
     sourceType: 'module',
   },
-  plugins: ['simple-import-sort'],
+  ignorePatterns: ['node_modules/', 'dist/', 'src/shaders/**/*.glsl.js'],
   rules: {
-    'arrow-body-style': ['error', 'as-needed'],
-    'func-style': 'error',
-    'no-restricted-syntax': ['error', 'VariableDeclaration[kind!="var"]'],
-    'object-shorthand': 'error',
-    'simple-import-sort/imports': 'error',
+    // Le code source du projet utilise beaucoup de snake_case et `var`.
+    // On conserve Google Style Guide comme base, mais on assouplit ces règles
+    // pour éviter une CI bloquante sans refactor massif.
+    camelcase: 'off',
+    'no-var': 'off',
+    'max-len': 'off',
+    'no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
   },
 };

@@ -1,4 +1,4 @@
-import { randFloatSpread, mapLinear, lerp } from '../src/math.js';
+import {lerp, mapLinear, randFloatSpread} from '../src/math.js';
 
 describe('Tests unitaires - Two Ships Passing In The Night', () => {
   // Tests pour randFloatSpread
