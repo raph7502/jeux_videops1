@@ -1,0 +1,78 @@
+name: CI - Two Ships Passing In The Night
+
+on:
+  workflow_dispatch:
+  push:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  Build-and-Test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: two-ships-passing-in-the-night
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: two-ships-passing-in-the-night/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Security audit (npm audit)
+        id: audit
+        run: |
+          set +e
+          npm audit
+          status=$?
+          if [ "$status" -ne 0 ]; then
+            echo "::warning::npm audit a détecté des vulnérabilités (code=$status). Consulte le log ci-dessus."
+            echo "AUDIT_STATUS=failed" >> "$GITHUB_ENV"
+          else
+            echo "AUDIT_STATUS=passed" >> "$GITHUB_ENV"
+          fi
+          exit 0
+
+      - name: Linter (Google Style Guide)
+        id: lint
+        run: |
+          set +e
+          npm run lint
+          status=$?
+          if [ "$status" -ne 0 ]; then
+            echo "::error::Le linter a échoué. Corrige les erreurs ESLint (Google JS Style Guide)."
+            exit "$status"
+          fi
+
+      - name: Unit + functional tests (Jest)
+        id: tests
+        run: |
+          set +e
+          npm test
+          status=$?
+          if [ "$status" -ne 0 ]; then
+            echo "::error::Les tests ont échoué. Vérifie la sortie Jest."
+            exit "$status"
+          fi
+
+      - name: Job summary
+        if: always()
+        run: |
+          {
+            echo "## Résumé CI";
+            echo "";
+            echo "- Projet: two-ships-passing-in-the-night";
+            echo "- Node: 20 (ubuntu-latest)";
+            echo "- Audit (non bloquant): ${AUDIT_STATUS:-unknown}";
+            echo "- Lint: ${{ steps.lint.outcome }}";
+            echo "- Tests: ${{ steps.tests.outcome }}";
+          } >> "$GITHUB_STEP_SUMMARY"
