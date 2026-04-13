@@ -1,11 +1,11 @@
 {
   "compilerOptions": {
-    "moduleResolution": "node",
+    "moduleResolution": "node10",
     "target": "ESNext",
     "esModuleInterop": true,
     "types": [
       "jest",
-      "jest"
+      "node"
     ]
   }
 }

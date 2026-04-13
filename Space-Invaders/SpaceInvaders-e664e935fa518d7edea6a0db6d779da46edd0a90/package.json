@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "start": "parcel ./src/index.html",
+    "start": "vite src --port 1234",
     "build": "rm -rf build && parcel build -d build --public-url ./ --no-source-maps ./src/index.html",
     "test": "jest",
     "lint": "eslint . --ext.ts",
@@ -13,8 +13,9 @@
     "bestzip": "^2.2.0",
     "jest": "^30.3.0",
     "parcel-bundler": "^1.12.5",
-    "sass": "^1.39.0",
+    "sass": "^1.99.0",
     "ts-jest": "^29.4.9",
-    "typescript": "^4.4.2"
+    "typescript": "^4.4.2",
+    "vite": "^8.0.8"
   }
 }
