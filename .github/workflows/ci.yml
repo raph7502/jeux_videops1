@@ -53,16 +53,38 @@ jobs:
             exit "$status"
           fi
 
-      - name: Unit + functional tests (Jest)
+      - name: Unit tests (Jest)
         id: tests
         run: |
           set +e
           npm test
           status=$?
           if [ "$status" -ne 0 ]; then
-            echo "::error::Les tests ont échoué. Vérifie la sortie Jest."
+            echo "::error::Les tests unitaires ont échoué. Vérifie la sortie Jest."
             exit "$status"
           fi
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Functional tests (Playwright)
+        id: e2e
+        run: |
+          set +e
+          npm run test:e2e
+          status=$?
+          if [ "$status" -ne 0 ]; then
+            echo "::error::Les tests fonctionnels ont échoué. Vérifie la sortie Playwright."
+            exit "$status"
+          fi
+
+      - name: Upload Playwright report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: two-ships-passing-in-the-night/playwright-report/
+          retention-days: 7
 
       - name: Job summary
         if: always()
@@ -74,5 +96,6 @@ jobs:
             echo "- Node: 20 (ubuntu-latest)";
             echo "- Audit (non bloquant): ${AUDIT_STATUS:-unknown}";
             echo "- Lint: ${{ steps.lint.outcome }}";
-            echo "- Tests: ${{ steps.tests.outcome }}";
+            echo "- Tests unitaires: ${{ steps.tests.outcome }}";
+            echo "- Tests fonctionnels: ${{ steps.e2e.outcome }}";
           } >> "$GITHUB_STEP_SUMMARY"
