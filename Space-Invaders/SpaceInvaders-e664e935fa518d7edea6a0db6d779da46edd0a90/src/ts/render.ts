@@ -7,11 +7,11 @@ import {
   PROJECTILE_SIZE,
   WORLD_SIZE,
 } from './config';
-import { Enemy } from './enemy';
-import { Projectile } from './physics';
-import { Vector } from './math/vector';
-import { toRelativeVector } from './world';
-import { Particle } from './particle';
+import {Enemy} from './enemy';
+import {Projectile} from './physics';
+import {Vector} from './math/vector';
+import {toRelativeVector} from './world';
+import {Particle} from './particle';
 
 export interface DrawData {
   playerPosition: Vector;
@@ -39,7 +39,7 @@ const colors = {
 function draw(
   $canvas: HTMLCanvasElement,
   ctx: CanvasRenderingContext2D,
-  { playerPosition, projectiles, enemies, particles }: DrawData,
+  {playerPosition, projectiles, enemies, particles}: DrawData,
 ) {
   ctx.globalCompositeOperation = 'source-over';
   ctx.clearRect(0, 0, $canvas.width, $canvas.height);

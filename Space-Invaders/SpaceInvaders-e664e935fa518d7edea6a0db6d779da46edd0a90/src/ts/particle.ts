@@ -1,6 +1,6 @@
-import { Vector } from './math/vector';
-import { toVector } from './math/polar-vector';
-import { PARTICLE_SPEED } from './config';
+import {Vector} from './math/vector';
+import {toVector} from './math/polar-vector';
+import {PARTICLE_SPEED} from './config';
 
 export interface Particle {
   position: Vector;

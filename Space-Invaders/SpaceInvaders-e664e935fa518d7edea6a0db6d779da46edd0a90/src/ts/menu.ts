@@ -1,4 +1,4 @@
-import { InputSource } from './input';
+import {InputSource} from './input';
 
 const INPUT_TYPE_KEY = 'psi_input_type';
 
@@ -51,7 +51,7 @@ export function init(
     start();
   }
 
-  function handleKeyDown({ key }: KeyboardEvent) {
+  function handleKeyDown({key}: KeyboardEvent) {
     if (key == 'Escape') {
       if ($menu.hidden) {
         show();

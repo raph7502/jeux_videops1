@@ -1,6 +1,6 @@
-import { clamp, lerp } from './math';
-import { add, subtract, dot, normalize } from './vector';
-import { distance, toVector } from './polar-vector';
+import {clamp, lerp} from './math';
+import {add, subtract, dot, normalize} from './vector';
+import {distance, toVector} from './polar-vector';
 
 describe('Tests officiels Space Invaders (Annexe PDF)', () => {
   const expectedDistance = 98.30248290540649;
@@ -15,11 +15,11 @@ describe('Tests officiels Space Invaders (Annexe PDF)', () => {
   });
 
   test('Vecteurs: add, subtract, dot, normalize', () => {
-    const v1 = { x: 5, y: 50 };
-    const v2 = { x: 10, y: 100 };
+    const v1 = {x: 5, y: 50};
+    const v2 = {x: 10, y: 100};
 
-    expect(add(v1, v2)).toEqual({ x: 15, y: 150 });
-    expect(subtract(v1, v2)).toEqual({ x: -5, y: -50 });
+    expect(add(v1, v2)).toEqual({x: 15, y: 150});
+    expect(subtract(v1, v2)).toEqual({x: -5, y: -50});
     expect(dot(v1, v2)).toBe(5050);
 
     const norm = normalize(v1);
@@ -28,8 +28,8 @@ describe('Tests officiels Space Invaders (Annexe PDF)', () => {
   });
 
   test('Vecteurs Polaires: distance et toVector', () => {
-    const p1 = { angle: 5, radius: 50 };
-    const p2 = { angle: 10, radius: 100 };
+    const p1 = {angle: 5, radius: 50};
+    const p2 = {angle: 10, radius: 100};
 
     // Valeur issue du PDF (pour éviter les problèmes d'arrondi)
     expect(distance(p1, p2)).toBeCloseTo(expectedDistance, 10);

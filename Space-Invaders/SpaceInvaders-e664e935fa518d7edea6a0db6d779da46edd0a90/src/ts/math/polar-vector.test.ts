@@ -1,8 +1,8 @@
-import { distance, toVector } from './polar-vector';
+import {distance, toVector} from './polar-vector';
 
 describe('Tests unitaires Vecteurs Polaires - Space Invaders', () => {
-  const p1 = { angle: 5, radius: 50 };
-  const p2 = { angle: 10, radius: 100 };
+  const p1 = {angle: 5, radius: 50};
+  const p2 = {angle: 10, radius: 100};
   const expectedDistance = 98.30248290540649;
 
   test(
