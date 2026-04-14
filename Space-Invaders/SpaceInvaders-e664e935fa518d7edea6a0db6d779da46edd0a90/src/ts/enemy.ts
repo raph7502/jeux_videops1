@@ -1,5 +1,5 @@
-import { PolarVector } from './math/polar-vector';
-import { WORLD_SIZE } from './config';
+import {PolarVector} from './math/polar-vector';
+import {WORLD_SIZE} from './config';
 
 export enum Type {
   Basic = 'Basic',
@@ -45,21 +45,21 @@ type MovePatterns = {
 };
 
 const movePatterns: MovePatterns = {
-  Basic({ enemy, deltaTime }: NextPositionData) {
+  Basic({enemy, deltaTime}: NextPositionData) {
     const newPos = {
       angle: enemy.position.angle,
       radius: enemy.position.radius - deltaTime * 100,
     };
     return newPos;
   },
-  Spinner({ enemy, deltaTime }: NextPositionData) {
+  Spinner({enemy, deltaTime}: NextPositionData) {
     const newPos = {
       angle: enemy.position.angle + enemy.direction * deltaTime * 1,
       radius: enemy.position.radius - deltaTime * 100,
     };
     return newPos;
   },
-  ZigZag({ enemy, deltaTime }: NextPositionData) {
+  ZigZag({enemy, deltaTime}: NextPositionData) {
     const angle = enemy.initialPosition.angle +
       enemy.direction * Math.sin(enemy.age) * Math.PI;
     const newPos = {
@@ -68,7 +68,7 @@ const movePatterns: MovePatterns = {
     };
     return newPos;
   },
-  Oscillator({ enemy, deltaTime }: NextPositionData) {
+  Oscillator({enemy, deltaTime}: NextPositionData) {
     const angle = enemy.position.angle + enemy.direction * deltaTime * 1;
     const radius = Math.sin(enemy.age * 10) * 50 +
       WORLD_SIZE / 2 -

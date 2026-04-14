@@ -1,4 +1,4 @@
-import { magnitude, Vector } from './vector';
+import {magnitude, Vector} from './vector';
 
 export interface PolarVector {
   angle: number;

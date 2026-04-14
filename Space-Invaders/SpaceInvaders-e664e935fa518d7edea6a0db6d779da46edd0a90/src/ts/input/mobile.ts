@@ -1,5 +1,5 @@
-import { InitFunctionOutput, Input } from '.';
-import { Vector, normalize } from '../math/vector';
+import {InitFunctionOutput, Input} from '.';
+import {Vector, normalize} from '../math/vector';
 
 let position: Vector = {
   x: 0,
@@ -51,7 +51,7 @@ export function init(): InitFunctionOutput {
     const x = touch.pageX - (rect.x + rect.width / 2);
     const y = touch.pageY - (rect.y + rect.height / 2);
 
-    const { x: nx, y: ny } = normalize({ x, y });
+    const {x: nx, y: ny} = normalize({x, y});
 
     position = {
       x: nx,

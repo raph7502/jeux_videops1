@@ -1,5 +1,5 @@
-import { InitFunctionOutput, Input } from '.';
-import { normalize, Vector } from '../math/vector';
+import {InitFunctionOutput, Input} from '.';
+import {normalize, Vector} from '../math/vector';
 
 let position: Vector = {
   x: 0,
@@ -34,11 +34,11 @@ export function init(): InitFunctionOutput {
     fire = false;
   }
 
-  function onMouseMove({ clientX, clientY }: MouseEvent) {
+  function onMouseMove({clientX, clientY}: MouseEvent) {
     const rect = canvas.getBoundingClientRect();
     const x = clientX - (rect.x + rect.width / 2);
     const y = clientY - (rect.y + rect.height / 2);
-    const norm = normalize({ x, y });
+    const norm = normalize({x, y});
 
     position = norm;
   }

@@ -11,9 +11,9 @@ import {
   PROJECTILE_SPEED,
   WORLD_SIZE,
 } from './config';
-import { advanceEnemy, createEnemy, Enemy, Type, getValue } from './enemy';
-import { Input } from './input';
-import { distance, PolarVector, toPolarVector } from './math/polar-vector';
+import {advanceEnemy, createEnemy, Enemy, Type, getValue} from './enemy';
+import {Input} from './input';
+import {distance, PolarVector, toPolarVector} from './math/polar-vector';
 import {
   add,
   magnitude,
@@ -22,8 +22,8 @@ import {
   slerp,
   Vector,
 } from './math/vector';
-import { Particle, createBoom } from './particle';
-import { toRelativeVector } from './world';
+import {Particle, createBoom} from './particle';
+import {toRelativeVector} from './world';
 
 export interface Projectile {
   position: PolarVector;
@@ -73,7 +73,9 @@ export function init() {
   };
 }
 
-function calculate({ input, deltaTime, addPoints }: PhysicsData): PhysicsOutput {
+function calculate(
+  {input, deltaTime, addPoints}: PhysicsData,
+): PhysicsOutput {
   for (let i = particles.length - 1; i >= 0; i -= 1) {
     const particle = particles[i];
     particle.age += deltaTime;
@@ -100,7 +102,7 @@ function calculate({ input, deltaTime, addPoints }: PhysicsData): PhysicsOutput 
     if (input.fire && fireTimer > FIRE_COOLDOWN) {
       fireTimer = 0;
       projectiles.push({
-        position: { ...toPolarVector(mulFactor(currentPosition, 50)) },
+        position: {...toPolarVector(mulFactor(currentPosition, 50))},
       });
     }
 
@@ -113,7 +115,7 @@ function calculate({ input, deltaTime, addPoints }: PhysicsData): PhysicsOutput 
       enemies.push(
         createEnemy(
           types[Math.random() * types.length | 0],
-          { angle, radius: WORLD_SIZE / 2 },
+          {angle, radius: WORLD_SIZE / 2},
         ),
       );
     }
@@ -136,7 +138,7 @@ function calculate({ input, deltaTime, addPoints }: PhysicsData): PhysicsOutput 
           setTimeout(() => {
             particles.push(
               ...createBoom(
-                { x: WORLD_SIZE / 2, y: WORLD_SIZE / 2 },
+                {x: WORLD_SIZE / 2, y: WORLD_SIZE / 2},
                 4 + i * 4,
               ),
             );

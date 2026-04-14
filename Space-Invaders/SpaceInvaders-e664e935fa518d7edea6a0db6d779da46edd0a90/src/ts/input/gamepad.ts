@@ -1,4 +1,4 @@
-import { InitFunctionOutput, Input } from '.';
+import {InitFunctionOutput, Input} from '.';
 
 export function init(): InitFunctionOutput {
   let bready = () => undefined;
@@ -23,12 +23,12 @@ export function init(): InitFunctionOutput {
     window.removeEventListener('gamepaddisconnected', onDisconncted, false);
   }
 
-  function onConnected({ gamepad }: GamepadEvent) {
+  function onConnected({gamepad}: GamepadEvent) {
     console.log('connected', gamepad);
     bready();
   }
 
-  function onDisconncted({ gamepad }: GamepadEvent) {
+  function onDisconncted({gamepad}: GamepadEvent) {
     console.log('disconnected', gamepad);
     bstop();
   }
