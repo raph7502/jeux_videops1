@@ -1,6 +1,6 @@
-import { init as initGamepad } from './gamepad';
-import { init as initMobile } from './mobile';
-import { init as initMouse } from './mouse';
+import {init as initGamepad} from './gamepad';
+import {init as initMobile} from './mobile';
+import {init as initMouse} from './mouse';
 
 export interface Input {
   axes: {
@@ -14,7 +14,7 @@ export interface InitFunctionOutput {
   getInput: () => Input;
   setActive: (ready: () => void, stop: () => void) => void;
   setInactive: () => void;
-};
+}
 
 export enum InputSource {
   Gamepad = 'Gamepad',
@@ -34,7 +34,7 @@ export function init(source: InputSource, ready: () => void, stop: () => void) {
   return {
     getInput,
     setInputSource,
-    getInputSource
+    getInputSource,
   };
 
   function setInputSource(source: InputSource) {
@@ -46,14 +46,14 @@ export function init(source: InputSource, ready: () => void, stop: () => void) {
     inputFunction.setActive(ready, stop);
   }
 
-  function getInputFunction(source: InputSource): InitFunctionOutput  {
+  function getInputFunction(source: InputSource): InitFunctionOutput {
     switch (source) {
-      case InputSource.Gamepad:
-        return gamepad;
-      case InputSource.Mobile:
-        return mobile;
-      case InputSource.Mouse:
-        return mouse;
+    case InputSource.Gamepad:
+      return gamepad;
+    case InputSource.Mobile:
+      return mobile;
+    case InputSource.Mouse:
+      return mouse;
     }
   }
 }

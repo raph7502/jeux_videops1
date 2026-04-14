@@ -52,7 +52,7 @@ export function init() {
   updateUI();
 
   return {
-    addPoints
+    addPoints,
   };
 
   function addPoints(value: number) {
