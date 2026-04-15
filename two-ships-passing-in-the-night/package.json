@@ -10,7 +10,8 @@
     "serve": "vite preview",
     "test": "node --experimental-vm-modules ./node_modules/.bin/jest",
     "test:e2e": "playwright test",
-    "lint": "eslint . --fix"
+    "lint": "eslint . --fix",
+    "lint:check": "eslint ."
   },
   "repository": {
     "type": "git",
