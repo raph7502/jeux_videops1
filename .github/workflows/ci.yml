@@ -46,7 +46,7 @@ jobs:
         id: lint
         run: |
           set +e
-          npm run lint
+          npm run lint:check
           status=$?
           if [ "$status" -ne 0 ]; then
             echo "::error::Le linter a échoué. Corrige les erreurs ESLint (Google JS Style Guide)."
