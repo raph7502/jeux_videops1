@@ -16,9 +16,9 @@ module.exports = {
     // Le code source du projet utilise beaucoup de snake_case et `var`.
     // On conserve Google Style Guide comme base, mais on assouplit ces règles
     // pour éviter une CI bloquante sans refactor massif.
-    camelcase: 'off',
+    'camelcase': 'off',
     'no-var': 'off',
     'max-len': 'off',
-    'no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
+    'no-unused-vars': ['warn', {argsIgnorePattern: '^_'}],
   },
 };
