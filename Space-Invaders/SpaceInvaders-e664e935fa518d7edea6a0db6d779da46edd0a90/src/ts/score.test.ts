@@ -1,22 +1,6 @@
 import {score, highScore, updateScore, resetScore} from './score';
 
-// Simulation du localStorage pour que Jest ne plante pas
-const localStorageMock = (() => {
-  let store: Record<string, string> = {};
-  return {
-    getItem: (key: string) => store[key] || null,
-    setItem: (key: string, value: string) => {
-      store[key] = value.toString();
-    },
-    clear: () => {
-      store = {};
-    },
-  };
-})();
-
-Object.defineProperty(globalThis, 'localStorage', {value: localStorageMock});
-
-describe('Logique du Score - Tests supplémentaires (Jour 3)', () => {
+describe('Logique du Score - Tests supplémentaires', () => {
   beforeEach(() => {
     resetScore();
     localStorage.clear();
@@ -37,10 +21,10 @@ describe('Logique du Score - Tests supplémentaires (Jour 3)', () => {
   });
 
   test('4. highScore ne doit pas changer si le score est inférieur', () => {
-    updateScore(1000); // Nouveau record
+    updateScore(1000);
     resetScore();
-    updateScore(50); // Score plus bas
-    expect(highScore).toBe(1000); // Le record reste à 1000
+    updateScore(50);
+    expect(highScore).toBe(1000);
   });
 
   test('5. resetScore doit remettre le score actuel à 0', () => {
