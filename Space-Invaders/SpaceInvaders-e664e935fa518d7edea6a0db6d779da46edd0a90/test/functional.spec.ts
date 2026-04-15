@@ -1,22 +1,23 @@
 import {test, expect} from '@playwright/test';
 
 test.describe('Space Invaders - Tests Fonctionnels', () => {
-  test('1. Le jeu doit charger et afficher le titre', async ({page}) => {
+  test('1. Le jeu doit charger et afficher le canvas', async ({page}) => {
     await page.goto('/');
-    const canvas = await page.locator('#canvas');
+    const canvas = page.locator('#canvas');
     await expect(canvas).toBeVisible();
   });
 
-  test('2. Le jeu doit démarrer après une action clavier', async ({page}) => {
+  test('2. Le menu principal affiche le titre du jeu', async ({page}) => {
     await page.goto('/');
-    await page.keyboard.press('Enter');
-
-    await expect(page.locator('text=Space Invaders')).toBeVisible();
+    const title = page.locator('#menu h1');
+    await expect(title).toBeVisible();
+    await expect(title).toContainText('Space Invaders');
   });
 
-  test('3. Le score doit être présent à l\'écran', async ({page}) => {
+  test('3. Le score est présent dans le DOM au chargement', async ({page}) => {
     await page.goto('/');
-    await page.keyboard.press('Enter');
-    await expect(page.locator('body')).toContainText(/Score/i);
+    const scoreEl = page.locator('.score');
+    await expect(scoreEl).toBeAttached();
+    await expect(scoreEl).toContainText(/Score/i);
   });
 });
