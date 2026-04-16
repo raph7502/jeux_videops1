@@ -1,0 +1,89 @@
+name: Deploy - Page commune + jeux
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Build tous les projets
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # --- Two Ships ---
+      - name: Installer les dépendances Two Ships
+        run: npm ci
+        working-directory: two-ships-passing-in-the-night
+
+      - name: Build Two Ships (base /jeux_videops1/two-ships/)
+        run: npx vite build --base=/${{ github.event.repository.name }}/two-ships/
+        working-directory: two-ships-passing-in-the-night
+
+      # --- Space Invaders ---
+      - name: Installer les dépendances Space Invaders
+        run: npm ci
+        working-directory: Space-Invaders/SpaceInvaders-e664e935fa518d7edea6a0db6d779da46edd0a90
+
+      - name: Build Space Invaders
+        run: npm run build
+        working-directory: Space-Invaders/SpaceInvaders-e664e935fa518d7edea6a0db6d779da46edd0a90
+
+      # --- Assemblage ---
+      - name: Assembler le site complet
+        run: |
+          mkdir -p _site/two-ships _site/space-invaders
+          cp web/index.html _site/index.html
+          cp -r two-ships-passing-in-the-night/dist/. _site/two-ships/
+          cp -r Space-Invaders/SpaceInvaders-e664e935fa518d7edea6a0db6d779da46edd0a90/build/. _site/space-invaders/
+
+      - name: Setup GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    name: Déploiement GitHub Pages
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Déployer sur GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: Résumé du déploiement
+        if: always()
+        run: |
+          {
+            echo "## Déploiement global";
+            echo "";
+            echo "- Branche: ${{ github.ref_name }}";
+            echo "- Commit: ${{ github.sha }}";
+            echo "- Statut: ${{ steps.deployment.outcome }}";
+            echo "- URL: ${{ steps.deployment.outputs.page_url }}";
+          } >> "$GITHUB_STEP_SUMMARY"
