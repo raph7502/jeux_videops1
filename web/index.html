@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JeuxVideOPS — Epitech</title>
+    <style>
+      *, *::before, *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        background-color: #0a0a0f;
+        color: #e0e0e0;
+        font-family: 'Segoe UI', system-ui, sans-serif;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      header {
+        width: 100%;
+        text-align: center;
+        padding: 3rem 1rem 2rem;
+        border-bottom: 1px solid #1e1e2e;
+      }
+
+      header h1 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        color: #ffffff;
+      }
+
+      header p {
+        margin-top: 0.75rem;
+        font-size: 1rem;
+        color: #888;
+      }
+
+      .stars {
+        color: #4f8ef7;
+      }
+
+      main {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+        justify-content: center;
+        padding: 3rem 1.5rem;
+        max-width: 960px;
+        width: 100%;
+      }
+
+      .card {
+        background-color: #111120;
+        border: 1px solid #1e1e3a;
+        border-radius: 12px;
+        padding: 2rem;
+        width: 380px;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        transition: border-color 0.2s, transform 0.2s;
+      }
+
+      .card:hover {
+        border-color: #4f8ef7;
+        transform: translateY(-4px);
+      }
+
+      .card-icon {
+        font-size: 3rem;
+        text-align: center;
+      }
+
+      .card h2 {
+        font-size: 1.4rem;
+        font-weight: 600;
+        color: #ffffff;
+        text-align: center;
+      }
+
+      .card p {
+        font-size: 0.9rem;
+        color: #999;
+        line-height: 1.6;
+        text-align: center;
+      }
+
+      .badge {
+        display: inline-block;
+        font-size: 0.75rem;
+        padding: 0.2rem 0.6rem;
+        border-radius: 999px;
+        font-weight: 500;
+      }
+
+      .badge-ts { background-color: #1a3a5c; color: #4f8ef7; }
+      .badge-js { background-color: #3a3000; color: #f7d94f; }
+
+      .badges {
+        display: flex;
+        gap: 0.5rem;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .card-author {
+        font-size: 0.8rem;
+        color: #666;
+        text-align: center;
+      }
+
+      .btn {
+        display: block;
+        text-align: center;
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-weight: 600;
+        text-decoration: none;
+        background-color: #4f8ef7;
+        color: #ffffff;
+        transition: background-color 0.2s;
+        margin-top: auto;
+      }
+
+      .btn:hover {
+        background-color: #3a7ae0;
+      }
+
+      footer {
+        margin-top: auto;
+        padding: 2rem 1rem;
+        text-align: center;
+        font-size: 0.8rem;
+        color: #555;
+        border-top: 1px solid #1e1e2e;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1><span class="stars">&#9733;</span> JeuxVideOPS <span class="stars">&#9733;</span></h1>
+      <p>Projet DevOps &mdash; Web Acad&eacute;mie &middot; Epitech &middot; 2025&ndash;2026</p>
+    </header>
+
+    <main>
+      <div class="card">
+        <div class="card-icon">&#128640;</div>
+        <h2>Two Ships Passing In The Night</h2>
+        <p>
+          Un jeu de tir spatial en JavaScript vanilla. &Eacute;vitez les obstacles,
+          survivez le plus longtemps possible et battez votre meilleur score.
+        </p>
+        <div class="badges">
+          <span class="badge badge-js">JavaScript</span>
+          <span class="badge badge-js">Vite</span>
+          <span class="badge badge-js">Jest</span>
+          <span class="badge badge-js">Playwright</span>
+        </div>
+        <p class="card-author">Par Walid Sofiane</p>
+        <a class="btn" href="./two-ships/">Jouer</a>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">&#128126;</div>
+        <h2>Space Invaders</h2>
+        <p>
+          Le classique revisit&eacute; en TypeScript. D&eacute;truisez les envahisseurs,
+          montez en niveaux et tentez de d&eacute;crocher le meilleur score.
+        </p>
+        <div class="badges">
+          <span class="badge badge-ts">TypeScript</span>
+          <span class="badge badge-ts">Parcel</span>
+          <span class="badge badge-ts">Jest</span>
+          <span class="badge badge-ts">Playwright</span>
+        </div>
+        <p class="card-author">Par Rapha&euml;l</p>
+        <a class="btn" href="./space-invaders/">Jouer</a>
+      </div>
+    </main>
+
+    <footer>
+      D&eacute;ploy&eacute; via GitHub Actions &middot; GitHub Pages
+    </footer>
+  </body>
+</html>
