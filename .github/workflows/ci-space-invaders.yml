@@ -1,18 +1,18 @@
-name: CI - Two Ships Passing In The Night
+name: CI - Space Invaders
 
 on:
-  workflow_dispatch:
   push:
   pull_request:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
-  Build-and-Test:
+  build-and-test:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: two-ships-passing-in-the-night
+        working-directory: Space-Invaders/SpaceInvaders-e664e935fa518d7edea6a0db6d779da46edd0a90
 
     steps:
       - name: Checkout
@@ -21,9 +21,9 @@ jobs:
       - name: Setup Node.js 20
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
-          cache: "npm"
-          cache-dependency-path: two-ships-passing-in-the-night/package-lock.json
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: Space-Invaders/SpaceInvaders-e664e935fa518d7edea6a0db6d779da46edd0a90/package-lock.json
 
       - name: Install dependencies
         run: npm ci
@@ -32,7 +32,7 @@ jobs:
         id: audit
         run: |
           set +e
-          npm audit
+          npm audit --audit-level=moderate
           status=$?
           if [ "$status" -ne 0 ]; then
             echo "::warning::npm audit a détecté des vulnérabilités (code=$status). Consulte le log ci-dessus."
@@ -46,10 +46,10 @@ jobs:
         id: lint
         run: |
           set +e
-          npm run lint:check
+          npm run lint
           status=$?
           if [ "$status" -ne 0 ]; then
-            echo "::error::Le linter a échoué. Corrige les erreurs ESLint (Google JS Style Guide)."
+            echo "::error::Le linter a échoué. Corrige les erreurs ESLint."
             exit "$status"
           fi
 
@@ -71,7 +71,7 @@ jobs:
         id: e2e
         run: |
           set +e
-          npm run test:e2e
+          npx playwright test
           status=$?
           if [ "$status" -ne 0 ]; then
             echo "::error::Les tests fonctionnels ont échoué. Vérifie la sortie Playwright."
@@ -82,8 +82,8 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: playwright-report
-          path: two-ships-passing-in-the-night/playwright-report/
+          name: playwright-report-space-invaders
+          path: Space-Invaders/SpaceInvaders-e664e935fa518d7edea6a0db6d779da46edd0a90/playwright-report/
           retention-days: 7
 
       - name: Job summary
@@ -92,7 +92,7 @@ jobs:
           {
             echo "## Résumé CI";
             echo "";
-            echo "- Projet: two-ships-passing-in-the-night";
+            echo "- Projet: Space Invaders";
             echo "- Node: 20 (ubuntu-latest)";
             echo "- Audit (non bloquant): ${AUDIT_STATUS:-unknown}";
             echo "- Lint: ${{ steps.lint.outcome }}";

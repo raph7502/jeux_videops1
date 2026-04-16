@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "moduleResolution": "node10",
+    "moduleResolution": "bundler",
     "target": "ESNext",
     "esModuleInterop": true,
     "types": [
